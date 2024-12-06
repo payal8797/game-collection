@@ -1,0 +1,95 @@
+/* src/components/FourInARow/FourInARow.css */  
+.game-container {  
+  display: flex;  
+  flex-direction: column;  
+  align-items: center;  
+  margin-top: 20px;
+ }  
+
+h1 {  
+  font-family: 'Arial', sans-serif;  
+  color: #007BFF;  
+}  
+
+.board {  
+  display: flex;  
+  flex-direction: column;  
+  margin-bottom: 20px;  
+}  
+
+.row {  
+  display: flex;  
+}  
+
+.cell {  
+  width: 60px;  
+  height: 60px;  
+  border-radius: 50%; 
+  border: 2px solid #007BFF;  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  cursor: pointer;  
+  background-color: #e0e0e0;  
+  position: relative; 
+  overflow: hidden;  
+}  
+
+.cell.Red {  
+  background-color: red;  
+}  
+
+.cell.Yellow {  
+  background-color: yellow;  
+}  
+
+.cell.drop-animation {  
+  animation: drop 0.5s forwards;  
+}  
+
+@keyframes drop {  
+  from {  
+    transform: translateY(-100%); 
+    opacity: 1;  
+  }  
+  to {  
+    transform: translateY(0);  
+    opacity: 1;  
+  }  
+}  
+
+.status {  
+  font-size: 24px;  
+  margin: 10px 0;  
+  font-weight: bold;  
+}  
+
+.reset-button {  
+  padding: 10px 20px;  
+  font-size: 16px;  
+  background-color: #007BFF;  
+  color: white;  
+  border: none;  
+  border-radius: 5px;  
+  cursor: pointer;  
+  transition: background-color 0.3s;  
+}  
+
+.reset-button:hover {  
+  background-color: #0056b3;  
+}
+
+.manual-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.manual-button:hover {
+  background-color: #0056b3;
+}
