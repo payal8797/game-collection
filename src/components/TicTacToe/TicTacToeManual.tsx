@@ -1,21 +1,10 @@
-import React, { useState } from 'react';
-import { Button, Collapse, Typography } from '@mui/material';  
+import React from 'react';
+import { Typography } from '@mui/material';  
 
 const TicTacToeManual: React.FC = () => {
-   
-  const [manualOpen, setManualOpen] = useState(false);
 
-  const toggleManual = () => {
-    setManualOpen(!manualOpen);
-  };
-  
   return (
-      <>
-      <Button variant="outlined" onClick={toggleManual} style={{ marginTop: '20px' }}>
-        {manualOpen ? 'Hide Manual' : 'Show Manual'}
-      </Button>
-      <Collapse in={manualOpen} timeout="auto" unmountOnExit>
-          <div className="manual" style={{ marginTop: '20px', padding: '10px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
+    <div className="manual" >
             <Typography variant="h6" gutterBottom>
               Tic Tac Toe Game Manual
             </Typography>
@@ -44,10 +33,7 @@ const TicTacToeManual: React.FC = () => {
                 <li>Always block your opponent if they have two marks in a row.</li>
               </ul>
             </Typography>
-          </div>
-      </Collapse>
-      </>
-    
+    </div>
   );
 };
 

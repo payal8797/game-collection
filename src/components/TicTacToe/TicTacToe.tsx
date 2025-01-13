@@ -1,96 +1,121 @@
-import React, { useState } from 'react';
-import PlayerSelectionModal from './PlayerSelectionModal';
-import './TicTacToe.css';
-import TicTacToeManual from './TicTacToeManual';
+import React, { useState } from "react";
+import { Box, Button, TextField, Typography, RadioGroup, FormControlLabel, Radio } from "@mui/material";
+import Board from "./Board";
 
-interface Players {
-  player1: string;
-  player2: string;
-  icon1: string; // Icon for player 1
-  icon2: string; // Icon for player 2
-}
+type SquareValue = "X" | "O" | null;
 
 const TicTacToe: React.FC = () => {
-  const [board, setBoard] = useState<(string | null)[]>(Array(9).fill(null));
-  const [currentPlayer, setCurrentPlayer] = useState<string>('X');
-  const [winner, setWinner] = useState<string | null>(null);
-  const [players, setPlayers] = useState<Players | null>(null);
- 
-  const handleClick = (index: number): void => {
-    if (board[index] || winner) return; // Ignore if cell is occupied or game is won
-    const newBoard = board.slice();
-    newBoard[index] = currentPlayer;
-    setBoard(newBoard);
-    const newWinner = calculateWinner(newBoard);
-    if (newWinner) {
-      setWinner(newWinner);
+  const [squares, setSquares] = useState<SquareValue[]>(Array(9).fill(null));
+  const [isXNext, setIsXNext] = useState<boolean>(true);
+
+  const [player1, setPlayer1] = useState<string>("");
+  const [player2, setPlayer2] = useState<string>("");
+  const [player1Symbol, setPlayer1Symbol] = useState<SquareValue>("X");
+  const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
+
+  const handleSquareClick = (index: number): void => {
+    if (squares[index] || calculateWinner(squares)) return;
+
+    const nextSquares = [...squares];
+    nextSquares[index] = isXNext ? player1Symbol : player1Symbol === "X" ? "O" : "X";
+    setSquares(nextSquares);
+    setIsXNext(!isXNext);
+  };
+
+  const handleStartGame = (): void => {
+    if (player1 && player2) {
+      setIsGameStarted(true);
     } else {
-      setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X'); // Switch players
+      alert("Please enter both player names.");
     }
   };
 
-  const calculateWinner = (board: (string | null)[]): string | null => {
-    const lines = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-      [0, 4, 8], [2, 4, 6], // Diagonals
-    ];
-    for (let line of lines) {
-      const [a, b, c] = line;
-      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        return board[a]; // Return the winner
-      }
-    }
-    return null; // No winner yet
-  };
+  const winner = calculateWinner(squares);
+  const isDraw = squares.every((square) => square !== null) && !winner;
 
-  const startGame = (selectedPlayers: Players): void => {
-    setPlayers(selectedPlayers);
-    setBoard(Array(9).fill(null)); // Reset board
-    setCurrentPlayer(selectedPlayers.icon1); // Set starting player
-    setWinner(null); // Reset winner
-  };
- 
+  const status = winner
+    ? `Winner: ${winner === player1Symbol ? player1 : player2}`
+    : isDraw
+    ? "It's a draw!"
+    : `Current Player: ${isXNext ? player1 : player2}`;
+
   return (
-    <div className="game-container">
-      {!players && (
-        <><PlayerSelectionModal startGame={startGame} /><TicTacToeManual /></>
-      )}
-
-      {players && (
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      margin={10}
+    >
+      {!isGameStarted ? (
         <>
-          <div className="board">
-            {board.map((cell, index) => (
-              <div
-                key={index}
-                className="cell"
-                onClick={() => handleClick(index)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '2rem',
-                  border: '1px solid #8B4513',
-                }}
-              >
-                {cell}
-              </div>
-            ))}
-          </div>
-          {winner && (
-            <>
-              <div
-                className="winner"
-                style={{ fontSize: '1.5rem', color: '#228B22' }}
-              >
-                Winner: {winner === players.icon1 ? players.player1 : players.player2}
-              </div>
-            </>
-          )}
+         
+          <TextField
+            label="Player 1 Name"
+            value={player1}
+            onChange={(e) => setPlayer1(e.target.value)}
+            variant="outlined"
+            margin="normal"
+          />
+          <TextField
+            label="Player 2 Name"
+            value={player2}
+            onChange={(e) => setPlayer2(e.target.value)}
+            variant="outlined"
+            margin="normal"
+          />
+          <Typography variant="body1" mt={2}>
+            Player 1, choose your symbol:
+          </Typography>
+          <RadioGroup
+            row
+            value={player1Symbol}
+            onChange={(e) => setPlayer1Symbol(e.target.value as SquareValue)}
+          >
+            <FormControlLabel value="X" control={<Radio />} label="X" />
+            <FormControlLabel value="O" control={<Radio />} label="O" />
+          </RadioGroup>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleStartGame}
+            sx={{ mt: 3 }}
+          >
+            Start Game
+          </Button>
+        </>
+      ) : (
+        <>
+          <Typography variant="h5" mb={2}>
+            {player1} ({player1Symbol}) vs {player2} ({player1Symbol === "X" ? "O" : "X"})
+          </Typography>
+          <Typography variant="h6" mb={2}>
+            {status}
+          </Typography>
+          <Board squares={squares} onSquareClick={handleSquareClick} />
         </>
       )}
-    </div>
+    </Box>
   );
+};
+
+const calculateWinner = (squares: SquareValue[]): SquareValue => {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let [a, b, c] of lines) {
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
 };
 
 export default TicTacToe;

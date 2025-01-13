@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './MemoryMatch.css';
-import MemoryMatchManual from './MemoryMatchManual';
 
 interface Card {
   id: number;
@@ -83,7 +82,6 @@ const MemoryMatch: React.FC = () => {
           <h2>You Win!</h2>
         </div>
       )}
-      <MemoryMatchManual/>
     </div>
   );
 };

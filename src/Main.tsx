@@ -15,7 +15,7 @@ const Main: React.FC = () => {
         return 'Tic Tac Toe';
       case '/four-in-a-row':
         return 'Four In A Row';
-      case '/match-game':
+      case '/memory-match':
         return 'Match Game';
       default:
         return '';

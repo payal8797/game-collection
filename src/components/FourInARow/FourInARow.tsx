@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import Tooltip from '@mui/material/Tooltip';
 import './FourInARow.css';
-import FourInARowManual from './FourInARowManual';
 
 const ROWS = 6;
 const COLS = 7;
@@ -102,7 +100,6 @@ const FourInARow: React.FC = () => {
       <div className="status">
         {winner ? `${winner} Wins!` : `Current Player: ${currentPlayer}`}
       </div>
-      <FourInARowManual/>
     </div>
   );
 };
