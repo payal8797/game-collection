@@ -24,6 +24,11 @@ const games: Game[] = [
     image: '/images/memory-match.png',
     route: '/memory-match',
   },
+  {
+    title: 'Hangman',
+    image: '/images/hangman.jpeg',
+    route: '/hangman',
+  }
 ];
 
 const Home: React.FC = () => {

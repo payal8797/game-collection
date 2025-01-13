@@ -1,0 +1,71 @@
+.hangman-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 100px;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  margin-bottom: 24px;
+  color: #555;
+}
+
+.word-input {
+  width: 300px;
+}
+
+.hangman-figure {
+  margin-bottom: 24px;
+}
+
+.hangman-image {
+  width: 150px;
+  height: auto;
+}
+
+.word-display {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.word-letter {
+  font-size: 2rem;
+  border-bottom: 2px solid #000;
+  width: 2rem;
+  text-align: center;
+}
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.keyboard-button {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.keyboard-button.correct {
+  background-color: #4caf50 !important;
+}
+
+.keyboard-button.wrong {
+  background-color: #f44336 !important;
+}

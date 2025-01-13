@@ -5,6 +5,7 @@ import FourInARow from './components/FourInARow/FourInARow';
 import MemoryMatch from './components/MemoryMatch/MemoryMatch';
 import Home from './pages/Home';
 import Header from './components/Header';
+import Hangman from './components/Hangman/Hangman';
 
 const Main: React.FC = () => {
   const location = useLocation();
@@ -17,6 +18,8 @@ const Main: React.FC = () => {
         return 'Four In A Row';
       case '/memory-match':
         return 'Match Game';
+      case '/hangman':
+        return 'Hangman';
       default:
         return '';
     }
@@ -30,6 +33,7 @@ const Main: React.FC = () => {
         <Route path="/tic-tac-toe" element={<TicTacToe />} />
         <Route path="/four-in-a-row" element={<FourInARow />} />
         <Route path="/memory-match" element={<MemoryMatch />} />
+        <Route path="/hangman" element={<Hangman />} />
       </Routes>
     </>
   );
