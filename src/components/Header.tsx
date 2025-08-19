@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import TicTacToeManual from './TicTacToe/TicTacToeManual';
 import FourInARowManual from './FourInARow/FourInARowManual';
 import MemoryMatchManual from './MemoryMatch/MemoryMatchManual';
+import HangmanManual from './Hangman/HangmanManual';
 
 interface HeaderProps {
   gameName?: string;
@@ -58,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ gameName }) => {
            {gameName === 'Tic Tac Toe' && <TicTacToeManual />}
            {gameName === 'Four In A Row' && <FourInARowManual />}
            {gameName === 'Match Game' && <MemoryMatchManual />}
-    
+           {gameName === 'Hangman' && <HangmanManual />}
           </Box>
         </Modal>
       </Toolbar>
